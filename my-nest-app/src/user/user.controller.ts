@@ -6,11 +6,6 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  getUser(): string {
-    return 'This is the user controller';
-  }
-
-  @Get('all')
   getAllUsers() {
     return this.userService.getAllUsers();
   }
