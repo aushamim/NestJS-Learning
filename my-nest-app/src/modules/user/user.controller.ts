@@ -1,5 +1,7 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { AuthGuard } from 'src/guards/auth/auth.guard';
+import { Roles } from 'src/guards/roles/roles.decorators';
+import { Role } from 'src/guards/roles/roles.enums';
+import { RolesGuard } from 'src/guards/roles/roles.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserService } from './user.service';
 
@@ -13,7 +15,8 @@ export class UserController {
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard)
+  @UseGuards(RolesGuard)
+  @Roles(Role.ADMIN)
   getUserById(@Param('id') id: string) {
     return this.userService.getUserById(parseInt(id));
   }
