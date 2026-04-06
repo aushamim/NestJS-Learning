@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, UseFilters, UseGuards } from '@nestjs/common';
+import { HttpExceptionFilter } from 'src/filters/http-exception/http-exception.filter';
 import { Roles } from 'src/guards/roles/roles.decorators';
 import { Role } from 'src/guards/roles/roles.enums';
 import { RolesGuard } from 'src/guards/roles/roles.guard';
@@ -15,10 +16,11 @@ export class UserController {
   }
 
   @Get(':id')
+  @UseFilters(HttpExceptionFilter)
   @UseGuards(RolesGuard)
   @Roles(Role.ADMIN)
-  getUserById(@Param('id') id: string) {
-    return this.userService.getUserById(parseInt(id));
+  getUserById(@Param('id', ParseIntPipe) id: number) {
+    return this.userService.getUserById(id);
   }
 
   @Post()
