@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoggerMiddleware } from './middlewares/logger/logger.middleware';
 import { UserModule } from './modules/user/user.module';
+import { EmployeesModule } from './modules/employees/employees.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { UserModule } from './modules/user/user.module';
       synchronize: true,
     }),
     UserModule,
+    EmployeesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
